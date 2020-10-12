@@ -15,7 +15,7 @@ function App() {
     // Updates React state with message 
     setMesg(note);
     console.log(note);
-    client.end();
+    client.end(); 
     });
 
   // Sets default React state 
