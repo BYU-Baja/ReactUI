@@ -1,6 +1,6 @@
 import React, { useState, Fragment } from 'react';
 import './App.css';
-import bajaLogo from '/Users/justinmiller/taste_of_mqtt_in_react/src/BajaLogo.png';
+import bajaLogo from '../src/BajaLogo.png';
 
 var mqtt    = require('mqtt');
 var client  = mqtt.connect('mqtt://24.10.232.182:1883');
