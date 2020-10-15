@@ -1,9 +1,14 @@
 import React, { useState, Fragment } from 'react';
 import './App.css';
 import bajaLogo from '../src/BajaLogo.png';
+import PrimaryButton from "./components/PrimaryButton"
 
 var mqtt    = require('mqtt');
 var client  = mqtt.connect('mqtt://127.0.0.1:8883');
+
+function handleSubmit(){
+  alert("you clicked me!")
+};
 
 // preciouschicken.com is the MQTT topic
 client.subscribe('baja/sensors/#');
@@ -37,6 +42,7 @@ function App() {
     <img src={bajaLogo} className="App-logo" alt="logo" />
     <h1>BYU BAJA Base Station</h1>
     <p>Incoming Data: {mesg}</p>
+    <PrimaryButton onClick = {handleSubmit}>Set Base Location</PrimaryButton>
 		<p>
 		</p>
 		</header>
