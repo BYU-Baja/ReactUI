@@ -1,26 +1,29 @@
 import React, { Component } from "react";
-import { Map, TileLayer, Marker, Popup } from "react-leaflet";
+import ReactMapboxGl, { Layer, Feature } from 'react-mapbox-gl';
+import "./style.css";
+
+const Map = ReactMapboxGl({
+  accessToken:
+    'pk.eyJ1IjoianVzdGJyZW5rbWFuIiwiYSI6ImNrYXI5ZXNhazBjbW8yem14ZDR5Y2p5a2wifQ.rVv3z5OQ8hrH61I4y9qDyw'
+});
 
 export default class VehicleMap extends React.Component {
-  state = {
-    lat: 51.505,
-    lng: -0.09,
-    zoom: 13,
+  constructor(props) {
+    super(props);
+    this.state = {
+      lng: 10,
+      lat: 10,
+      zoom: 10
+    };
   }
-    render() {
-      const position = [this.state.lat, this.state.lng]
-      return (
-        <Map center={position} zoom={this.state.zoom}>
-          <TileLayer
-            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          <Marker position={position}>
-            <Popup>
-              A pretty CSS3 popup. <br /> Easily customizable.
-            </Popup>
-          </Marker>
+
+  render() {
+    return <div className="map_container">
+        <Map style="mapbox://styles/mapbox/streets-v9" containerStyle={{height: '50vh',width: '50vw', borderRadius: 64, boxShadow: '5px 5px 20px black'}}>
+          <div className='sidebarStyle'>
+            <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
+          </div>
         </Map>
-      )
-    }
+      </div>;
+  };
 }

@@ -39,10 +39,10 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        <VehicleMap></VehicleMap>
         <img src={bajaLogo} className="App-logo" alt="logo" />
         <h1>BYU BAJA Base Station</h1>
         <p>Incoming Data: {mesg}</p>
-        <VehicleMap></VehicleMap>
         <p></p>
       </header>
     </div>
