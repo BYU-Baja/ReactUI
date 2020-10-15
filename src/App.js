@@ -3,10 +3,20 @@ import './App.css';
 import bajaLogo from '../src/BajaLogo.png';
 
 var mqtt    = require('mqtt');
-var client  = mqtt.connect('mqtt://24.10.232.182:1883');
+var client  = mqtt.connect('mqtt://127.0.0.1:8883');
 
 // preciouschicken.com is the MQTT topic
 client.subscribe('baja/sensors/#');
+
+client.on('connect', function () {
+  client.subscribe('presence', function (err) {
+    if (!err) {
+      client.publish('presence', 'Hello mqtt')
+      console.log("we did it!");
+    }
+    console.log(err);
+  })
+})
 
 function App() {
   var note;
