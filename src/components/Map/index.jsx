@@ -17,9 +17,15 @@ export default class VehicleMap extends React.Component {
     };
   }
 
+  style_blueprint = "mapbox://styles/justbrenkman/ckgbjgjuf055519oa5ybhx06g";
+  style_dark = "mapbox://styles/mapbox/dark-v10";
+  style_streets = "mapbox://styles/mapbox/streets-v11";
+  style_outdoors = "mapbox://styles/mapbox/outdoors-v11";
+
+
   render() {
     return <div className="map_container">
-        <Map style="mapbox://styles/mapbox/streets-v9" containerStyle={{height: '50vh',width: '50vw', borderRadius: 64, boxShadow: '5px 5px 20px black'}}>
+        <Map style={this.style_blueprint} containerStyle={{height: '50vh',width: '50vw', borderRadius: 64, boxShadow: '5px 5px 20px black'}}>
           <div className='sidebarStyle'>
             <div>Longitude: {this.state.lng} | Latitude: {this.state.lat} | Zoom: {this.state.zoom}</div>
           </div>
