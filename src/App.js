@@ -37,7 +37,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <VehicleMap vehicleLocation={[-111.6672998, 40.2669074]} baseLocation={[-111.6472998, 40.2469074]} mapCenterStart={{lat: 40.2469074, lng: -111.6472998, zoom: 15}}></VehicleMap>
+        <VehicleMap vehicleLocation={{lng: -111.6672998, lat: 40.2669074}} baseLocation={{lng: -111.6472998, lat: 40.2469074}} mapCenterStart={{lat: 40.2469074, lng: -111.6472998, zoom: 15}} vehicleHistory={[{lng: -111.6472998, lat: 40.2469074}, {lng: -111.6672998, lat: 40.2669074}]}></VehicleMap>
         <img src={bajaLogo} className="App-logo" alt="logo" />
         <h1>BYU BAJA Base Station</h1>
         <p>Incoming Data: {mesg}</p>

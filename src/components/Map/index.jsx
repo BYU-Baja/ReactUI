@@ -9,6 +9,18 @@ const Map = ReactMapboxGl({
     'pk.eyJ1IjoianVzdGJyZW5rbWFuIiwiYSI6ImNrYXI5ZXNhazBjbW8yem14ZDR5Y2p5a2wifQ.rVv3z5OQ8hrH61I4y9qDyw'
 });
 
+const lineLayout = {
+  'line-cap': 'round',
+  'line-join': 'round'
+};
+
+const linePaint = {
+  'line-color': '#4790E5',
+  'line-width': 2
+};
+
+// How to use
+// <VehicleMap vehicleLocation={{lng: -111.6672998, lat: 40.2669074}} baseLocation={{lng: -111.6472998, lat: 40.2469074}} mapCenterStart={{lat: 40.2469074, lng: -111.6472998, zoom: 15}} vehicleHistory={[{lng: -111.6472998, lat: 40.2469074}, {lng: -111.6672998, lat: 40.2669074}]}></VehicleMap>
 export default class VehicleMap extends Component {
   constructor(props) {
     super(props);
@@ -31,8 +43,9 @@ export default class VehicleMap extends Component {
   style_satellite = 'mapbox://styles/mapbox/satellite-v9';
   style_blueprint = "mapbox://styles/justbrenkman/ckgbjgjuf055519oa5ybhx06g";
 
-  defaultVehicleLocation = this.props.vehicleLocation || [0, 0];
-  defaultBaseLocation = this.props.baseLocation || [0, 0];
+  defaultVehicleLocation = [this.props.vehicleLocation.lng, this.props.vehicleLocation.lat] || [0, 0];
+  defaultBaseLocation = [this.props.baseLocation.lng, this.props.baseLocation.lat] || [0, 0];
+  vehicleHistory = this.props.vehicleHistory?.map(loc => [loc.lng, loc.lat]) || [this.defaultBaseLocation, this.defaultVehicleLocation];
 
   render() {
     return <div className="map_container">
@@ -47,11 +60,13 @@ export default class VehicleMap extends Component {
             layout={{ "icon-image": "baja_vehicle", 'icon-size': 1, 'icon-allow-overlap': true }}>
               <Feature coordinates={this.defaultVehicleLocation} />
           </Layer>
-
           <Layer
             type="symbol"
             layout={{ "icon-image": "antenna", 'icon-size': 1, 'icon-allow-overlap': true }}>
               <Feature coordinates={this.defaultBaseLocation} />
+          </Layer>
+          <Layer type="line" layout={lineLayout} paint={linePaint}>
+              <Feature coordinates={this.vehicleHistory}/>
           </Layer>
         </Map>
       </div>;
