@@ -19,7 +19,8 @@
     "react-leaflet": "^2.7.0",
     "react-leaflet-markercluster": "^2.0.0-rc3",
     "react-mapbox-gl": "^4.8.6",
-    "react-scripts": "^3.4.3"
+    "react-scripts": "^3.4.3",
+    "styled-components": "^5.2.0"
   },
   "scripts": {
     "start": "react-scripts start",
