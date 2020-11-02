@@ -2,6 +2,7 @@ import React, { useState, Fragment } from "react";
 import "./App.css";
 import bajaLogo from "../src/baja_logo_small.png";
 import VehicleMap from "./components/Map/index";
+import DataComp from "./components/DataComponent/index.js";
 import styled from "styled-components";
 
 var mqtt = require("mqtt");
@@ -35,6 +36,17 @@ function App() {
     </Fragment>
   );
 
+  let speed = 19;
+  let rpm = 2.4;
+  let milesRemaining = 17;
+
+  function fuelClick(){
+    milesRemaining = 100;
+    alert("miles remaining: " + milesRemaining);
+    //state.setState({ mssg: "Hi there!" });
+  };
+  
+
   const AlignLeft = styled.div`
   width: 60%;
   height: 75%;
@@ -63,7 +75,7 @@ function App() {
   `;
 
   const CenterJustify = styled.div`
-  min-height: 100vh;
+  min-height: 120vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -98,24 +110,22 @@ function App() {
       <AlightTop>
       <img src={bajaLogo} className="App-logo" alt="logo" />
       </AlightTop>
-
       <DisplayStle><AlignLeft>
       <div className="App">
       <header className="App-header2">
       <p></p>
       <VehicleMap vehicleLocation={{lng: -111.6672998, lat: 40.2669074}} baseLocation={{lng: -111.6472998, lat: 40.2469074}} mapCenterStart={{lat: 40.2469074, lng: -111.6472998, zoom: 15}} vehicleHistory={[{lng: -111.6472998, lat: 40.2469074}, {lng: -111.6672998, lat: 40.2669074}]}></VehicleMap>
       <p></p>
-      <ButtonRow><button onClick = {clicked} style = {{margin: 20}}>Set Base Station Location</button><button onClick = {clicked} style = {{margin: 20}}>Fuel Tank Filled</button></ButtonRow>
+      <ButtonRow><button onClick = {clicked} style = {{margin: 20}}>Set Base Station Location</button><button onClick = {fuelClick} style = {{margin: 20}}>Fuel Tank Filled</button></ButtonRow>
       </header>
       </div></AlignLeft>
       <div className = "App"><header className = "App-header">
       <AlightRight><CenterJustify>
-        <p>Data Component</p><p>Data Component</p><p>Data Component</p>
+        <DataComp dataType = "MPH" dataNum = {speed}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp><DataComp dataType = "Miles til Empty" dataNum = {milesRemaining}></DataComp>
       </CenterJustify></AlightRight>
       </header>
       </div>
       </DisplayStle> 
-
     </ColorDiv>
   );
 }
