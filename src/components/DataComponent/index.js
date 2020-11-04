@@ -2,11 +2,11 @@ import React from "react";
 import styled from "styled-components";
 
 const InviteeContainer = styled.div`    
-  height: 14vw;
-  width: 25vw;
+  height: 11vw;
+  width: 20vw;
   background-color: #F5F5F5;
   border-radius: 12px;
-  margin: 1.5vw;
+  margin: 1vw;
   transition: transform 0.08s ease-in-out;
   transition: box-shadow 0.08s ease-in-out;
   transform: scale(1.0, 1.0);
@@ -43,8 +43,8 @@ bottom: 0;
 const DataBar = styled.div`
 font-weight: bold;
 color: black;
-padding: 10% 15%;
-font-size: 10vw;
+padding: 9% 15%;
+font-size: 8.5vw;
 display: flex;
 flex-direction: row;
 justify-content: center;

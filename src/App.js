@@ -57,7 +57,7 @@ function App() {
 
   const AlightRight = styled.div`
     width: 40%;
-    height: 100%;
+    height: 78%;
     position: absolute;
     Right:0;
     bottom:0;
@@ -65,9 +65,9 @@ function App() {
 
   const AlightTop = styled.div`
     width: 100%;
-    height: 20%;
+    height: 17%;
     position: absolute;
-    top:10px;
+    top:20px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -75,11 +75,11 @@ function App() {
   `;
 
   const CenterJustify = styled.div`
-  min-height: 120vh;
+  //min-height: 120vh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between;
   `;
 
   const ButtonRow = styled.div`
@@ -122,7 +122,7 @@ function App() {
       <div className = "App"><header className = "App-header">
       <AlightRight><CenterJustify>
         <DataComp dataType = "MPH" dataNum = {speed}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp><DataComp dataType = "Miles til Empty" dataNum = {milesRemaining}></DataComp>
-      </CenterJustify></AlightRight>
+        </CenterJustify></AlightRight>
       </header>
       </div>
       </DisplayStle> 
