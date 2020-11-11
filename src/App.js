@@ -9,7 +9,7 @@ var mqtt = require("mqtt");
 var client = mqtt.connect("mqtt://24.10.232.182:8883");
 
 client.on("connect", function () {
-  client.subscribe("baja/sensors/#");
+  client.subscribe("#");
   client.subscribe("presence", function (err) {
     if (!err) {
       client.publish("presence", "Hello mqtt");
@@ -22,7 +22,7 @@ client.on("connect", function () {
 function App() {
   var note;
   client.on("message", function (topic, message) {
-    note = message.toString();
+    note = message.toString("hex");
     // Updates React state with message
     setMesg(note);
     console.log(note);
@@ -121,7 +121,7 @@ function App() {
       </div></AlignLeft>
       <div className = "App"><header className = "App-header">
       <AlightRight><CenterJustify>
-        <DataComp dataType = "MPH" dataNum = {speed}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp><DataComp dataType = "Miles til Empty" dataNum = {milesRemaining}></DataComp>
+        <DataComp dataType = "MPH" dataNum = {mesg.toString()}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp><DataComp dataType = "Miles til Empty" dataNum = {milesRemaining}></DataComp>
         </CenterJustify></AlightRight>
       </header>
       </div>
