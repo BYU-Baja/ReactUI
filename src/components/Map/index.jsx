@@ -49,7 +49,7 @@ export default class VehicleMap extends Component {
 
   render() {
     return <div className="map_container">
-        <Map center={[this.state.centerMap.lng, this.state.centerMap.lat]} style={this.style_streets} containerStyle={{height: '50vh',width: '50vw', borderRadius: 64, boxShadow: '5px 5px 20px black'}} onMove={(map, _) => {this.setState({centerMap: {lat: map.getCenter().lat, lng: map.getCenter().lng, zoom: map.getZoom()}})}}>
+        <Map center={[this.state.centerMap.lng, this.state.centerMap.lat]} style={this.style_streets} containerStyle={{height: '100%',width: '100%', borderRadius: 0, boxShadow: '5px 5px 20px black'}} onMove={(map, _) => {this.setState({centerMap: {lat: map.getCenter().lat, lng: map.getCenter().lng, zoom: map.getZoom()}})}}>
           <div className='sidebarStyle'>
             <div>Longitude: {this.state.centerMap.lng} | Latitude: {this.state.centerMap.lat} | Zoom: {this.state.centerMap.zoom}</div>
           </div>

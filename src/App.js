@@ -4,6 +4,8 @@ import bajaLogo from "../src/baja_logo_small.png";
 import VehicleMap from "./components/Map/index";
 import DataComp from "./components/DataComponent/index.js";
 import styled from "styled-components";
+import Navbar from "./components/NavBar/navBar"
+import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
 
 var mqtt = require("mqtt");
 var client = mqtt.connect("mqtt://24.10.232.182:8883");
@@ -48,8 +50,8 @@ function App() {
   
 
   const AlignLeft = styled.div`
-  width: 60%;
-  height: 75%;
+  width: 100%;
+  height: 100%;
   position: absolute;
   left:0;
   bottom:0;
@@ -61,17 +63,6 @@ function App() {
     position: absolute;
     Right:0;
     bottom:0;
-  `;
-
-  const AlightTop = styled.div`
-    width: 100%;
-    height: 17%;
-    position: absolute;
-    top:20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
   `;
 
   const CenterJustify = styled.div`
@@ -106,27 +97,15 @@ function App() {
   };
 
   return (
-    <ColorDiv>
-      <AlightTop>
-      <img src={bajaLogo} className="App-logo" alt="logo" />
-      </AlightTop>
-      <DisplayStle><AlignLeft>
-      <div className="App">
-      <header className="App-header2">
-      <p></p>
+    <div>
       <VehicleMap vehicleLocation={{lng: -111.6672998, lat: 40.2669074}} baseLocation={{lng: -111.6472998, lat: 40.2469074}} mapCenterStart={{lat: 40.2469074, lng: -111.6472998, zoom: 15}} vehicleHistory={[{lng: -111.6472998, lat: 40.2469074}, {lng: -111.6672998, lat: 40.2669074}]}></VehicleMap>
-      <p></p>
-      <ButtonRow><button onClick = {clicked} style = {{margin: 20}}>Set Base Station Location</button><button onClick = {fuelClick} style = {{margin: 20}}>Fuel Tank Filled</button></ButtonRow>
-      </header>
-      </div></AlignLeft>
-      <div className = "App"><header className = "App-header">
-      <AlightRight><CenterJustify>
-        <DataComp dataType = "MPH" dataNum = {mesg.toString()}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp><DataComp dataType = "Miles til Empty" dataNum = {milesRemaining}></DataComp>
-        </CenterJustify></AlightRight>
-      </header>
-      </div>
-      </DisplayStle> 
-    </ColorDiv>
+      <Router>
+        <Navbar/>
+        <Switch>
+          <Route path = '/'/>
+        </Switch>
+      </Router>
+    </div>
   );
 }
 
