@@ -13,8 +13,16 @@
 }
 
 .map_container{
-    height: 100%;
-    width: 90%;
+    height: 89%;
+    width: 82%;
+    position: absolute;
+    right:0;
+    bottom:0;
+}
+
+.map_container_closed{
+    height: 89%;
+    width: 100%;
     position: absolute;
     right:0;
     bottom:0;

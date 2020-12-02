@@ -1,11 +1,11 @@
 import React, { useState, Fragment } from "react";
 import "./App.css";
-import bajaLogo from "../src/baja_logo_small.png";
-import VehicleMap from "./components/Map/index";
-import DataComp from "./components/DataComponent/index.js";
 import styled from "styled-components";
 import Navbar from "./components/NavBar/navBar"
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import Home from './pages/Home';
+import Reports from './pages/Reports';
+import Products from './pages/Products';
 
 var mqtt = require("mqtt");
 var client = mqtt.connect("mqtt://24.10.232.182:8883");
@@ -47,62 +47,15 @@ function App() {
     alert("miles remaining: " + milesRemaining);
     //state.setState({ mssg: "Hi there!" });
   };
-  
-
-  const AlignLeft = styled.div`
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  left:0;
-  bottom:0;
-`;
-
-  const AlightRight = styled.div`
-    width: 40%;
-    height: 78%;
-    position: absolute;
-    Right:0;
-    bottom:0;
-  `;
-
-  const CenterJustify = styled.div`
-  //min-height: 120vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  `;
-
-  const ButtonRow = styled.div`
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: center;
-  `;
-
-  const DisplayStle = styled.div`
-    display: flex;
-    flex-direction: column;
-    justify-content: left;
-    align-items: left;
-    background-color: #282c34;
-  `;
-
-  const ColorDiv = styled.div`
-    background-color: #282c34;
-  `;
-
-  function clicked(){
-    alert("You clicked me")
-  };
 
   return (
     <div>
-      <VehicleMap vehicleLocation={{lng: -111.6672998, lat: 40.2669074}} baseLocation={{lng: -111.6472998, lat: 40.2469074}} mapCenterStart={{lat: 40.2469074, lng: -111.6472998, zoom: 15}} vehicleHistory={[{lng: -111.6472998, lat: 40.2469074}, {lng: -111.6672998, lat: 40.2669074}]}></VehicleMap>
       <Router>
         <Navbar/>
         <Switch>
-          <Route path = '/'/>
+          <Route path='/' exact component={Home} />
+          <Route path='/reports' component={Reports} />
+          <Route path='/products' component={Products} />
         </Switch>
       </Router>
     </div>
