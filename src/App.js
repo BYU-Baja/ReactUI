@@ -38,14 +38,8 @@ function App() {
 
   let speed = 19;
   let rpm = 2.4;
-  let milesRemaining = 17;
-
-  function fuelClick(){
-    milesRemaining = 100;
-    alert("miles remaining: " + milesRemaining);
-    //state.setState({ mssg: "Hi there!" });
-  };
-  
+  let milesRemaining = 4;
+  let throtle = 65;
 
   const AlignLeft = styled.div`
   width: 60%;
@@ -56,7 +50,15 @@ function App() {
 `;
 
   const AlightRight = styled.div`
-    width: 40%;
+    width: 23%;
+    height: 78%;
+    position: absolute;
+    Right:0;
+    bottom:0;
+  `;
+
+  const AlightRight2 = styled.div`
+    width: 67%;
     height: 78%;
     position: absolute;
     Right:0;
@@ -105,6 +107,12 @@ function App() {
     alert("You clicked me")
   };
 
+  function fuelClick(){
+    milesRemaining = 100;
+    alert("miles remaining: " + milesRemaining);
+    //state.setState({ mssg: "Hi there!" });
+  };
+
   return (
     <ColorDiv>
       <AlightTop>
@@ -121,8 +129,11 @@ function App() {
       </div></AlignLeft>
       <div className = "App"><header className = "App-header">
       <AlightRight><CenterJustify>
-        <DataComp dataType = "MPH" dataNum = {mesg.toString()}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp><DataComp dataType = "Miles til Empty" dataNum = {milesRemaining}></DataComp>
+        <DataComp dataType = "MPH" dataNum = {mesg.toString()}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp><DataComp dataType = "Gallons Remain" dataNum = {milesRemaining}></DataComp>
         </CenterJustify></AlightRight>
+      <AlightRight2><CenterJustify>
+      <DataComp dataType = "Throttle (%)" dataNum = {throtle}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp>
+      </CenterJustify></AlightRight2>
       </header>
       </div>
       </DisplayStle> 
