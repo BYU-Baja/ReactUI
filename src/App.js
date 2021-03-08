@@ -1,16 +1,35 @@
+<<<<<<< HEAD
 import React, { useState, Fragment } from "react";
 import "./App.css";
 import bajaLogo from "../src/baja_logo_small.png";
 import VehicleMap from "./components/Map/index";
 import DataComp from "./components/DataComponent/index.js";
 import styled from "styled-components";
+=======
+import React, { useState, Fragment } from 'react';
+import './App.css';
+import bajaLogo from '../src/BajaLogo.png';
+import PrimaryButton from "./components/PrimaryButton"
+>>>>>>> master
 
 var mqtt = require("mqtt");
 var client = mqtt.connect("mqtt://24.10.232.182:8883");
 
+<<<<<<< HEAD
 client.on("connect", function () {
   client.subscribe("#");
   client.subscribe("presence", function (err) {
+=======
+function handleSubmit(){
+  alert("you clicked me!")
+};
+
+// preciouschicken.com is the MQTT topic
+client.subscribe('baja/sensors/#');
+
+client.on('connect', function () {
+  client.subscribe('presence', function (err) {
+>>>>>>> master
     if (!err) {
       client.publish("presence", "Hello mqtt");
       console.log("we did it!");
@@ -114,6 +133,7 @@ function App() {
   };
 
   return (
+<<<<<<< HEAD
     <ColorDiv>
       <AlightTop>
       <img src={bajaLogo} className="App-logo" alt="logo" />
@@ -138,6 +158,18 @@ function App() {
       </div>
       </DisplayStle> 
     </ColorDiv>
+=======
+    <div className="App">
+    <header className="App-header">
+    <img src={bajaLogo} className="App-logo" alt="logo" />
+    <h1>BYU BAJA Base Station</h1>
+    <p>Incoming Data: {mesg}</p>
+    <PrimaryButton onClick = {handleSubmit}>Set Base Location</PrimaryButton>
+		<p>
+		</p>
+		</header>
+		</div>
+>>>>>>> master
   );
 }
 
