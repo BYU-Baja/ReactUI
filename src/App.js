@@ -6,24 +6,74 @@ import DataComp from "./components/DataComponent/index.js";
 import styled from "styled-components";
 
 var mqtt = require("mqtt");
-var client = mqtt.connect("mqtt://24.10.232.182:8883");
+var client = mqtt.connect("mqtt://localhost:8883");
 
 client.on("connect", function () {
-  client.subscribe("#");
+  // client.subscribe("#");
+  // client.subscribe("presence", function (err) {
+  //   if (!err) {
+  //     client.publish("presence", "Hello mqtt");
+  //     console.log("we did it!");
+  //   }
+  //   console.log(err);
+  // });
+  client.subscribe("baja/sensors/a3");  //front right rpm
   client.subscribe("presence", function (err) {
     if (!err) {
       client.publish("presence", "Hello mqtt");
-      console.log("we did it!");
+      console.log("Front Right RPM sensor subscribed");
+      FRRPM();
+    }
+    console.log(err);
+  });
+  client.subscribe("baja/sensors/a4");  //front left rpm
+  client.subscribe("presence", function (err) {
+    if (!err) {
+      client.publish("presence", "Hello mqtt");
+      console.log("Front left RPM sensor subscribed");
     }
     console.log(err);
   });
 });
+
+//var data =  [64, 226, 157, 10];
+// var buf = new ArrayBuffer(4);
+// var view = new DataView(buf);
+// data.forEach(function (b, i) {
+//     view.setUint8(i, b);
+// });
+var frrpm = 0.0;
+var flrpm = 0.0;
+
+function FRRPM(data){
+  var buf = new ArrayBuffer(4);
+  var view = new DataView(buf);
+  data.forEach(function (b, i) {
+    view.setUint8(i, b);
+  });
+  frrpm = view.getFloat32(0); 
+};
+
+function FLRPM(data){
+  var buf = new ArrayBuffer(4);
+  var view = new DataView(buf);
+  data.forEach(function (b, i) {
+    view.setUint8(i, b);
+  });
+  flrpm = view.getFloat32(0); 
+};
 
 function App() {
   var note;
   client.on("message", function (topic, message) {
     note = message.toString("hex");
     // Updates React state with message
+    if(topic === "baja/sensors/a4"){
+      FRRPM(message);
+    }
+    else if(topic === "baja/sensors/a3"){
+      FLRPM(message);
+    }
     setMesg(note);
     console.log(note);
     client.end();
@@ -129,10 +179,10 @@ function App() {
       </div></AlignLeft>
       <div className = "App"><header className = "App-header">
       <AlightRight><CenterJustify>
-        <DataComp dataType = "MPH" dataNum = {mesg.toString()}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp><DataComp dataType = "Gallons Remain" dataNum = {milesRemaining}></DataComp>
+        <DataComp dataType = "MPH" dataNum = {mesg.toString()}></DataComp><DataComp dataType = "RPM FR(x1000)" dataNum = {frrpm.toFixed(1)}></DataComp><DataComp dataType = "Gallons Remain" dataNum = {milesRemaining}></DataComp>
         </CenterJustify></AlightRight>
       <AlightRight2><CenterJustify>
-      <DataComp dataType = "Throttle (%)" dataNum = {throtle}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp>
+      <DataComp dataType = "Throttle (%)" dataNum = {throtle}></DataComp><DataComp dataType = "RPM FL(x1000)" dataNum = {flrpm.toFixed(1)}></DataComp><DataComp dataType = "RPM (x1000)" dataNum = {rpm}></DataComp>
       </CenterJustify></AlightRight2>
       </header>
       </div>
