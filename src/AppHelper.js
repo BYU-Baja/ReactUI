@@ -6,63 +6,7 @@ import VehicleMap from "./components/Map/index";
 import DataCompHolder from "./components/DataCompHolder/index.js";
 import styled from "styled-components";
 
-var mqtt = require("mqtt");
-var client = mqtt.connect("mqtt://localhost:8883");
-
-client.on("connect", function () {
-  // client.subscribe("#");
-  client.subscribe("baja/sensors/0xa3"); //front right rpm
-  client.subscribe("baja/sensors/0xa4"); //front left rpm
-});
-
-//var data =  [64, 226, 157, 10];
-// var buf = new ArrayBuffer(4);
-// var view = new DataView(buf);
-// data.forEach(function (b, i) {
-//     view.setUint8(i, b);
-// });
-var frrpm = 0.0;
-var flrpm = 0.0;
-
-function FRRPM(data) {
-  // console.log(data);
-  var buf = new ArrayBuffer(4);
-  var view = new DataView(buf);
-  data.forEach(function (b, i) {
-    view.setUint8(i, b);
-  });
-  frrpm = view.getFloat32(0);
-  // console.log(frrpm);
-}
-
-function FLRPM(data) {
-  var buf = new ArrayBuffer(4);
-  var view = new DataView(buf);
-  data.forEach(function (b, i) {
-    view.setUint8(i, b);
-  });
-  flrpm = view.getFloat32(0);
-}
-
-function App() {
-  var note;
-  client.on("message", function (topic, message) {
-    // Updates React state with message
-    if (topic == "baja/sensors/0xa4") {
-      FRRPM(message);
-    } else if (topic === "baja/sensors/0xa3") {
-      FLRPM(message);
-    }
-  });
-
-  // Sets default React state
-  const [mesg, setMesg] = useState(
-    <Fragment>
-      <em>nothing published</em>
-    </Fragment>
-  );
-
-  let speed = 19;
+let speed = 19;
   let rpm = 2.4;
   let milesRemaining = 4;
   let throtle = 65;
@@ -138,7 +82,12 @@ function App() {
     alert("miles remaining: " + milesRemaining);
     //state.setState({ mssg: "Hi there!" });
   }
+  var frrpm;
+  var flrpm;
 
+
+class AppHelper extends React.Component {state = { frrpm : "0.0", flrpm: "0.0" }
+render() {
   return (
     <ColorDiv>
       <AlightTop>
@@ -181,7 +130,7 @@ function App() {
                 <DataCompHolder name="MPH" data={speed}></DataCompHolder>
                 <DataCompHolder
                   name="RPM FR(x1000)"
-                  data={frrpm.toFixed(1)}
+                  data={frrpm}
                 ></DataCompHolder>
                 <DataCompHolder
                   name="Gallons Remain"
@@ -194,7 +143,7 @@ function App() {
                 <DataCompHolder name="Throttle (%)" data={throtle}></DataCompHolder>
                 <DataCompHolder
                   name="RPM FL(x1000)"
-                  data={flrpm.toFixed(1)}
+                  data={flrpm}
                 ></DataCompHolder>
                 <DataCompHolder name="RPM (x1000)" data={rpm}></DataCompHolder>
               </CenterJustify>
@@ -204,6 +153,6 @@ function App() {
       </DisplayStle>
     </ColorDiv>
   );
-}
+}}
 
-export default App;
+export default AppHelper;
