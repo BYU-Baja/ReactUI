@@ -54,7 +54,6 @@ position: absolute;
 bottom: 0;
 `;
 
-//rsvpStatus: accepted, declined, pending
 const DataComp = ({dataType,dataNum,...props}) => {
 return <InviteeContainer>
         <CardStyle><DataBar>{dataNum}</DataBar>

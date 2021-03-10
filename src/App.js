@@ -3,6 +3,7 @@ import "./App.css";
 import bajaLogo from "../src/baja_logo_small.png";
 import VehicleMap from "./components/Map/index";
 import DataComp from "./components/DataComponent/index.js";
+import DataCompHolder from "./components/DataCompHolder/index.js";
 import styled from "styled-components";
 
 var mqtt = require("mqtt");
@@ -177,25 +178,25 @@ function App() {
           <header className="App-header">
             <AlightRight>
               <CenterJustify>
-                <DataComp dataType="MPH" dataNum={mesg.toString()}></DataComp>
-                <DataComp
-                  dataType="RPM FR(x1000)"
-                  dataNum={frrpm.toFixed(1)}
-                ></DataComp>
-                <DataComp
-                  dataType="Gallons Remain"
-                  dataNum={milesRemaining}
-                ></DataComp>
+                <DataCompHolder name="MPH" data={speed}></DataCompHolder>
+                <DataCompHolder
+                  name="RPM FR(x1000)"
+                  data={frrpm.toFixed(1)}
+                ></DataCompHolder>
+                <DataCompHolder
+                  name="Gallons Remain"
+                  data={milesRemaining}
+                ></DataCompHolder>
               </CenterJustify>
             </AlightRight>
             <AlightRight2>
               <CenterJustify>
-                <DataComp dataType="Throttle (%)" dataNum={throtle}></DataComp>
-                <DataComp
-                  dataType="RPM FL(x1000)"
-                  dataNum={flrpm.toFixed(1)}
-                ></DataComp>
-                <DataComp dataType="RPM (x1000)" dataNum={rpm}></DataComp>
+                <DataCompHolder name="Throttle (%)" data={throtle}></DataCompHolder>
+                <DataCompHolder
+                  name="RPM FL(x1000)"
+                  data={flrpm.toFixed(1)}
+                ></DataCompHolder>
+                <DataCompHolder name="RPM (x1000)" data={rpm}></DataCompHolder>
               </CenterJustify>
             </AlightRight2>
           </header>
