@@ -2,6 +2,7 @@ import React from "react";
 import DataComp from "./../DataComponent/index.js";
 // import ReactDOM from "react-dom";
 
+var dataOld;
 
 class DataCompHolder extends React.Component {state = { name : "my name", data: "0.0" }
     constructor(){
@@ -14,7 +15,11 @@ class DataCompHolder extends React.Component {state = { name : "my name", data: 
       };
       
     render() {
-      return <div>
+        if(!(dataOld === this.data)){
+            this.forceUpdateHandler();
+            dataOld = this.data;
+        }
+      return <div onClick= {this.forceUpdateHandler} >
         <DataComp dataType = {this.props.name} dataNum={this.props.data}></DataComp></div>
     }
 };
