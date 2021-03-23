@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React from "react";
 import "./App.css";
 import bajaLogo from "../src/baja_logo_small.png";
 import VehicleMap from "./components/Map/index";
@@ -82,16 +82,23 @@ let speed = 19;
     alert("miles remaining: " + milesRemaining);
     //state.setState({ mssg: "Hi there!" });
   }
-  var frrpm;
-  var flrpm;
+//   var frrpm;
+//   var flrpm;
 
 
 class AppHelper extends React.Component {state = { frrpm : "0.0", flrpm: "0.0" }
+handleClick = () => {
+    //speed += 1;
+    // force a re-render
+    this.forceUpdate();
+  };
+  
 render() {
   return (
     <ColorDiv>
       <AlightTop>
-        <img src={bajaLogo} className="App-logo" alt="logo" />
+      <button onClick={this.handleClick}>Force Update</button>
+      <img src={bajaLogo} className="App-logo" alt="logo" />
       </AlightTop>
       <DisplayStle>
         <AlignLeft>
@@ -130,7 +137,7 @@ render() {
                 <DataCompHolder name="MPH" data={speed}></DataCompHolder>
                 <DataCompHolder
                   name="RPM FR(x1000)"
-                  data={frrpm}
+                  data={this.frrpm}
                 ></DataCompHolder>
                 <DataCompHolder
                   name="Gallons Remain"
@@ -143,7 +150,7 @@ render() {
                 <DataCompHolder name="Throttle (%)" data={throtle}></DataCompHolder>
                 <DataCompHolder
                   name="RPM FL(x1000)"
-                  data={flrpm}
+                  data={this.flrpm}
                 ></DataCompHolder>
                 <DataCompHolder name="RPM (x1000)" data={rpm}></DataCompHolder>
               </CenterJustify>

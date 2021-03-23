@@ -22,6 +22,7 @@ function FRRPM(data) {
     view.setUint8(i, b);
   });
   frrpm = view.getFloat32(0);
+  frrpm = frrpm.toFixed(1);
   // console.log(frrpm);
 }
 
@@ -32,16 +33,19 @@ function FLRPM(data) {
     view.setUint8(i, b);
   });
   flrpm = view.getFloat32(0);
+  flrpm = flrpm.toFixed(1);
 }
 
 function App() {
-  var note;
+  //var note;
   client.on("message", function (topic, message) {
     // Updates React state with message
-    if (topic == "baja/sensors/0xa4") {
+    if (topic === "baja/sensors/0xa4") {
       FRRPM(message);
+      setMesg2(frrpm);
     } else if (topic === "baja/sensors/0xa3") {
       FLRPM(message);
+      setMesg(flrpm);
     }
   });
 
@@ -51,9 +55,15 @@ function App() {
       <em>nothing published</em>
     </Fragment>
   );
+  // Sets default React state
+  const [mesg2, setMesg2] = useState(
+    <Fragment>
+      <em>nothing published</em>
+    </Fragment>
+  );
 
   return (
-    <AppHelper frrpm = {frrpm.toFixed(1)} flrpm = {flrpm.toFixed(1)}></AppHelper>
+    <AppHelper frrpm = {mesg} flrpm = {mesg2}></AppHelper>
   );
 }
 
