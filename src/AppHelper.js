@@ -6,10 +6,10 @@ import VehicleMap from "./components/Map/index";
 import DataCompHolder from "./components/DataCompHolder/index.js";
 import styled from "styled-components";
 
-let speed = 19;
-  let rpm = 2.4;
-  let milesRemaining = 4;
-  let throtle = 65;
+let speed = 0.0;
+  let rpm = 0.0;
+  let milesRemaining = 0.0;
+  let throtle = 0.0;
 
   const AlignLeft = styled.div`
     width: 60%;
@@ -84,14 +84,71 @@ let speed = 19;
   }
 //   var frrpm;
 //   var flrpm;
+var firstUpdate = 1;
 
-
-class AppHelper extends React.Component {state = { frrpm : "0.0", flrpm: "0.0" }
+//state = { frrpm : "0.0", flrpm: "0.0" }
+class AppHelper extends React.Component {
 handleClick = () => {
-    //speed += 1;
+    this.setState(state => ({
+        seconds: 0
+      }));
+    this.frrpm = 0.0;
+    this.flrpm = 0.0;
+    speed = 0.0;
+    throtle = 0.0;
+    rpm = 0.0;
+    milesRemaining = 0.0;
     // force a re-render
     this.forceUpdate();
   };
+
+  /////
+  constructor(props) {
+    super(props);
+    this.state = {
+      seconds: parseInt(props.startTimeInSeconds, 10) || 0
+    };
+  }
+
+  tick() {
+    this.setState(state => ({
+      seconds: state.seconds + 1
+    }));
+  }
+
+  componentDidMount() {
+    this.interval = setInterval(() => this.tick(), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.interval);
+  }
+
+  formatTime(secs) {
+    if(firstUpdate === 1){
+    this.frrpm = 0.0;
+    this.flrpm = 0.0;
+    firstUpdate = 0;
+    }
+    else{
+        this.frrpm += .05;
+        this.flrpm += .05;
+        speed += .05;
+        throtle += .05;
+        rpm += .05;
+        milesRemaining += .05;
+    }
+    
+    let hours   = Math.floor(secs / 3600);
+    let minutes = Math.floor(secs / 60) % 60;
+    let seconds = secs % 60;
+    return [hours, minutes, seconds]
+        .map(v => ('' + v).padStart(2, '0'))
+        .filter((v,i) => v !== '00' || i > 0)
+        .join(':');
+  }
+
+  /////
   
 render() {
   return (
@@ -104,7 +161,10 @@ render() {
         <AlignLeft>
           <div className="App">
             <header className="App-header2">
-              <p></p>
+              <p></p> 
+              <div>
+        Timer: {this.formatTime(this.state.seconds)}
+      </div>
               <VehicleMap
                 vehicleLocation={{ lng: -111.6672998, lat: 40.2669074 }}
                 baseLocation={{ lng: -111.6472998, lat: 40.2469074 }}
@@ -134,25 +194,25 @@ render() {
           <header className="App-header">
             <AlightRight>
               <CenterJustify>
-                <DataCompHolder name="MPH" data={speed}></DataCompHolder>
+                <DataCompHolder name="MPH" data={speed.toFixed(1)}></DataCompHolder>
                 <DataCompHolder
                   name="RPM FR(x1000)"
-                  data={this.frrpm}
+                  data={this.frrpm.toFixed(1)}
                 ></DataCompHolder>
                 <DataCompHolder
                   name="Gallons Remain"
-                  data={milesRemaining}
+                  data={milesRemaining.toFixed(1)}
                 ></DataCompHolder>
               </CenterJustify>
             </AlightRight>
             <AlightRight2>
               <CenterJustify>
-                <DataCompHolder name="Throttle (%)" data={throtle}></DataCompHolder>
+                <DataCompHolder name="Throttle (%)" data={throtle.toFixed(1)}></DataCompHolder>
                 <DataCompHolder
                   name="RPM FL(x1000)"
-                  data={this.flrpm}
+                  data={this.flrpm.toFixed(1)}
                 ></DataCompHolder>
-                <DataCompHolder name="RPM (x1000)" data={rpm}></DataCompHolder>
+                <DataCompHolder name="RPM (x1000)" data={rpm.toFixed(1)}></DataCompHolder>
               </CenterJustify>
             </AlightRight2>
           </header>

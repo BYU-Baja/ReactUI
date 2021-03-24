@@ -1,4 +1,4 @@
-import React, { useState, Fragment } from "react";
+import React, { useState } from "react";
 import "./App.css";
 import AppHelper from "./AppHelper"
 
@@ -42,28 +42,19 @@ function App() {
     // Updates React state with message
     if (topic === "baja/sensors/0xa4") {
       FRRPM(message);
-      setMesg2(frrpm);
+      setfl(frrpm);
     } else if (topic === "baja/sensors/0xa3") {
       FLRPM(message);
-      setMesg(flrpm);
+      setfr(flrpm);
     }
   });
 
   // Sets default React state
-  const [mesg, setMesg] = useState(
-    <Fragment>
-      <em>nothing published</em>
-    </Fragment>
-  );
-  // Sets default React state
-  const [mesg2, setMesg2] = useState(
-    <Fragment>
-      <em>nothing published</em>
-    </Fragment>
-  );
+  const [fr, setfr] = useState(0.0);  // Sets default React state
+  const [fl, setfl] = useState(0.0);  // Sets default React state
 
   return (
-    <AppHelper frrpm = {mesg} flrpm = {mesg2}></AppHelper>
+    <AppHelper frrpm = {fr} flrpm = {fl}></AppHelper>
   );
 }
 
