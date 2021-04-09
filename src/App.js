@@ -48,6 +48,7 @@ function App() {
   var note;
   client.on("message", function (topic, message) {
     // Updates React state with message
+    console.log("Got message");
     if (topic == "baja/sensors/0xa4") {
       FRRPM(message);
     } else if (topic === "baja/sensors/0xa3") {
@@ -191,7 +192,10 @@ function App() {
             </AlightRight>
             <AlightRight2>
               <CenterJustify>
-                <DataCompHolder name="Throttle (%)" data={throtle}></DataCompHolder>
+                <DataCompHolder
+                  name="Throttle (%)"
+                  data={throtle}
+                ></DataCompHolder>
                 <DataCompHolder
                   name="RPM FL(x1000)"
                   data={flrpm.toFixed(1)}
